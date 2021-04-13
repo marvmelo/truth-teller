@@ -2,6 +2,8 @@
 This module contains the functions responsible for receiving a string
 with a logical expression and processing it into a tree using the TreeNode
 class defined in the classes module.
+
+It also contains some important global variables.
 '''
 
 if(__name__=="__main__"):
@@ -12,9 +14,22 @@ if(__name__=="__main__"):
 
     from classes import *
 
+#This list determine the symbols that represents the logical variables.
+#The length of the list determines the maximum number of logical variables the program can handle.
 from string import ascii_lowercase as variable_alphabet
 #The order in which operators appear in this list determine their priority.
-operators = ["B", ">", "|", "&", "!"]
+operators = ["=", ">", "|", "&", "!"]
+#This dictionary holds all instances of the LogicalVariable class.
+#It exists so two leaves in the proposition tree can point to the same data structure.
+logical_variables = {}
+
+
+def fill_logical_variables_dic(expression):
+
+
+    '''
+    This function is 
+    '''
 
 
 def is_single_variable(expression):
@@ -59,7 +74,7 @@ def split_parentheses(expression):
     that, due to parentheses, are in the same scope.
 
     For instance:
-    The expression (x&y)Bx would be split into (x&y), B, and x.
+    The expression (x&y)=x would be split into (x&y), =, and x.
 
     It returns a list of strings which are expressions and operators in order.
     '''
@@ -109,46 +124,12 @@ def split_subexpressions(expression_list, operation):
 
 
     '''
-    This function spli
+    This function takes a list of subexpressions and an operatot.
+
+    It splits the list into two list at the place of the first occourrence of the operator and
+    return the two sublists.
     '''
 
     index_operator = expression_list.index(operation)
     
     return expression_list[:index_operator], expression_list[index_operator+1:]
-
-def oberve (expression):
-
-    
-'''
-def prepare_associative_operator(expression_list, operation):
-
-
-    
-    This function takes a list of subexpressions and an operator and split
-    it into lists of subexpressions which are operands of the several consecutive first
-    appearence of the operator.
-
-    This is important because a node containing an associative operator can have several child
-    which can make this implementation more efficient.
-
-    It would return the operator and the list of lists.
-
-    Initially, this function would make into the final code. But I realized this would make my work
-    at the tree structure level easier, which is the opposite of what I wanted. Then, it was discarded,
-    but I decided to keep it in the code just in case.
-
-
-    indeces_operator = []
-    prepared_expressions = []
-    index_intial = expression_list.index(operation)
-
-    for index_expression in range(index_intial, len(expression_list)):
-
-        if(expression_list[index_expression]==operation):
-
-            indeces_operator.append(index_expression)
-
-        elif(is_single_operator(expression_list[index_expression])):
-
-            break
-'''
